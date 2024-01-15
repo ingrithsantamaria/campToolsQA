@@ -1,0 +1,18 @@
+
+# Ignore Cypress configuration file
+/cypress.env.json
+
+# Ignore node_modules directory
+/node_modules/
+
+# Ignore .DS_Store files on macOS
+.DS_Store
+
+# Ignore Cypress binary cache
+/cypress/binary/
+
+# Ignore npm debug logs
+npm-debug.log*
+
+# Ignore .vscode folder
+.vscode/
