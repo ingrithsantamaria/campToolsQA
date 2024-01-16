@@ -19,14 +19,37 @@ describe("Should click on links", () => {
     })
     it("User clicks on Created", () => {
         linkHome.getLinkCreate()
-        linkHome.validateResponse()
+        const keywords = ["201", "Created"]
+        linkHome.validateResponseMessage(keywords)
     })
     it("User clicks on no Content", () => {
         linkHome.getLinkNoContent()
-        linkHome.validateResponse()
+        const keywords = ["204", "No Content"]
+        linkHome.validateResponseMessage(keywords)
     })
     it("User clicks on Moved", () => {
-        linkHome.getMoved()
-        linkHome.validateResponse()
+        linkHome.getLinkMoved()
+        const keywords = ["301", "Moved Permanently"]
+        linkHome.validateResponseMessage(keywords)
+    })
+    it("User clicks on Bad Request", () => {
+        linkHome.getLinkBadRequest()
+        const keywords = ["400", "Bad Request"]
+        linkHome.validateResponseMessage(keywords)
+    })
+    it("User clicks on Unauthorized", () => {
+        linkHome.getLinkUnauthorized()
+        const keywords = ["401", "Unauthorized"]
+        linkHome.validateResponseMessage(keywords)
+    }) 
+    it("User clicks on Forbidden", () => {
+        linkHome.getLinkForbidden()
+        const keywords = ["403", "Forbidden"]
+        linkHome.validateResponseMessage(keywords)
+    })
+    it("User clicks on Not Found", () => {
+        linkHome.getLinkInvalidUrl()
+        const keywords = ["404", "Not Found"]
+        linkHome.validateResponseMessage(keywords)
     })
 })

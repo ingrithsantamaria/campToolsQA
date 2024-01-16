@@ -20,16 +20,30 @@ export class Link {
     getLinkCreate(){
         cy.get("#created").should("exist").and("be.visible").click()
     }
-    validateResponse(){
-        cy.get("#linkResponse").should("exist").and("be.visible")
-    }
     getLinkNoContent(){
         cy.get("#no-content").should("exist").and("be.visible").click();
     }
-    getMoved(){
+    getLinkMoved(){
         cy.get("#moved").should("exist").and("be.visible").click();
     }
-    // getBadRequest(){
-
-    // }
+    getLinkBadRequest(){
+        cy.get("#bad-request").should("exist").and("be.visible").click()
+    }
+    getLinkUnauthorized(){
+        cy.get("#unauthorized").should("exist").and("be.visible").click();
+    }
+    getLinkForbidden(){
+        cy.get("#forbidden").should("exist").and("be.visible").click();
+    }
+    getLinkInvalidUrl(){
+        cy.get("#invalid-url").should("exist").and("be.visible").click()
+    }
+    validateResponseMessage(keywords){
+        cy.get("#linkResponse").should("exist").and("be.visible").then(($message) => {
+            const textMessage = $message.text();
+            keywords.forEach((word) => {
+                expect(textMessage).to.include(word);
+            });
+        })
+    }
 }
