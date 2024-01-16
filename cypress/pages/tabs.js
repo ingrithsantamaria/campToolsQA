@@ -14,7 +14,10 @@ export class Tabs {
     getUseTabs() {
         cy.get("#demo-tab-use").should("exist").and("be.visible").click()
     }
-    // getMoreTabs() {
-    //     cy.get("a[role=tab][aria-disabled=true]").should("be.disabled")
-    // }
+    getMoreTabs() {
+        cy.get("a[role=tab][aria-disabled=true]").should("exist")
+    }
+    validateText(){
+        cy.get("p").should("not.be.empty").and("be.visible")
+    }
 }
