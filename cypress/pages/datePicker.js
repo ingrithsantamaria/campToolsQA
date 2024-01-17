@@ -15,10 +15,6 @@ export class DatePicker {
       .should("exist")
       .clear({force: true})
       .type(formattedDate);
-    // cy.get("#dateAndTimePickerInput")
-    //   .should("exist")
-    //   .clear({force: true})
-    //   .type(formattedDate);
   }
   selectRandomDateTwo(){
     const dateRandom = this.generateDateRandom(
