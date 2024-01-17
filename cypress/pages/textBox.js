@@ -6,11 +6,11 @@ export class TextBox {
     cy.visit("/text-box");
   }
   formtextBox(fullName, email, currentAddress, permanentAddress) {
-    cy.get("#userName").type(fullName);
-    cy.get("#userEmail").type(email);
-    cy.get("#currentAddress").type(currentAddress);
-    cy.get("#permanentAddress").type(permanentAddress);
-    cy.get("#submit").click();
+    cy.get("#userName").should("exist").and("be.visible").type(fullName);
+    cy.get("#userEmail").should("exist").and("be.visible").type(email);
+    cy.get("#currentAddress").should("exist").and("be.visible").type(currentAddress);
+    cy.get("#permanentAddress").should("exist").and("be.visible").type(permanentAddress);
+    cy.get("#submit").should("exist").and("be.visible").click();
   }
   getOutputData(){
     return cy.get("div#output").should("be.visible");

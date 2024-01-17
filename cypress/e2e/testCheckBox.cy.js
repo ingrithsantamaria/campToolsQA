@@ -8,6 +8,5 @@ describe ("Display and mark checkbox", () => {
         checkBox.expandMainToggle();
         checkBox.checkRandomCheckbox();
         checkBox.messageResult();
-        //checkBox.explainChildrenToggle();
     })
 })
