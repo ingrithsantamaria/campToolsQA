@@ -5,11 +5,11 @@ describe("Should select a random date", () => {
         picker.navigateDatePicker()
     })
     it("User select date on datePicker", () => {
-        picker.selectRandomDate(inputDateOne)
+        picker.selectRandomDate()
         picker.closeDatePicker()
     })
     it("User select date and hour", () => {
-        picker.selectRandomDate(inputDateTwo)
+        picker.selectRandomDateTwo()
         picker.selectRandomHour()
         picker.closeDatePicker()
     })

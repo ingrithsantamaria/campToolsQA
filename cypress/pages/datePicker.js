@@ -5,20 +5,31 @@ export class DatePicker {
     });
     cy.visit("/date-picker");
   }
-  selectRandomDate(inputDateOne, inputDateTwo) {
+  selectRandomDate() {
     const dateRandom = this.generateDateRandom(
       new Date(1990, 0, 1),
       new Date(2100, 11, 31)
     );
     const formattedDate = this.formatDate(dateRandom);
-    inputDateOne = cy.get("#datePickerMonthYearInput")
+    cy.get("#datePickerMonthYearInput")
       .should("exist")
-      .clear()
+      .clear({force: true})
       .type(formattedDate);
-    inputDateTwo = cy.get("#dateAndTimePickerInput")
-      .should("exist")
-      .clear()
-      .type(formattedDate);
+    // cy.get("#dateAndTimePickerInput")
+    //   .should("exist")
+    //   .clear({force: true})
+    //   .type(formattedDate);
+  }
+  selectRandomDateTwo(){
+    const dateRandom = this.generateDateRandom(
+      new Date(1990, 0, 1),
+      new Date(2100, 11, 31)
+    );
+    const formattedDate = this.formatDate(dateRandom);
+    cy.get("#dateAndTimePickerInput")
+    .should("exist")
+    .clear({force: true})
+    .type(formattedDate);
   }
   generateDateRandom(startDate, endDate) {
     const startTime = startDate.getTime();
@@ -32,9 +43,6 @@ export class DatePicker {
     const day = date.getDate().toString().padStart(2, "0");
     return `${month}/${day}/${year}`;
   }
-  closeDatePicker() {
-    cy.get("body").click();
-  }
   selectRandomHour() {
     const hourRandom = this.generateHourRandom();
     const hour = `${hourRandom}`;
@@ -46,5 +54,8 @@ export class DatePicker {
     return `${hoursRandom.toString().padStart(2, "0")}:${minutesRandom
       .toString()
       .padStart(2, "0")}`;
+  }
+  closeDatePicker() {
+    cy.get("body").click();
   }
 }
