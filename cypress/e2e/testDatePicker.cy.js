@@ -1,15 +1,15 @@
-import { DatePicker } from "../pages/datePicker";
+import { DatePicker } from "../pages/datePicker"
 const picker = new DatePicker()
 describe("Should select a random date", () => {
     beforeEach(() => {
         picker.navigateDatePicker()
     })
     it("User select date on datePicker", () => {
-        picker.selectRandomDate()
+        picker.selectDateRandom("datePickerMonthYearInput")
         picker.closeDatePicker()
     })
     it("User select date and hour", () => {
-        picker.selectRandomDateTwo()
+        picker.selectDateRandom("dateAndTimePickerInput")
         picker.selectRandomHour()
         picker.closeDatePicker()
     })

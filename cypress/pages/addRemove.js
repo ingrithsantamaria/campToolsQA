@@ -5,7 +5,7 @@ export class AddRemove {
         });
         cy.visit("https://the-internet.herokuapp.com/add_remove_elements/");
     }
-    addElements(){
+    clickAddElements(){
         const quantityClicks = 5;
         for (let i = 0; i < quantityClicks; i++) {
          cy.get("button:eq(0)").should("exist").click()

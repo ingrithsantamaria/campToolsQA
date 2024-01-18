@@ -5,7 +5,7 @@ beforeEach(() => {
 })
 describe("Should click in Add and next remove", () => {
     it("Click in Add Element and next delete", () => {
-        addRemove.addElements()
+        addRemove.clickAddElements()
         addRemove.clickDeleteButtons()
         addRemove.validateDivWithoutElements()
     })
