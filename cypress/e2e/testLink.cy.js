@@ -1,21 +1,24 @@
 import { Link } from "../pages/link";
 const linkHome = new Link();
-function validationRedirect(object, something){
-    cy.window().then((winHome) => {
-        const numberWindowsBefore = winHome.window.length;
-        something.call(object);
-        cy.window().should("have.property", "length", numberWindowsBefore + 1);
-    })
-}
 describe("Should click on links", () => {
     beforeEach(() => {
         linkHome.navigateLink();
     })
     it("User clicks on the home link", () => {
-        validationRedirect(linkHome, linkHome.validateLinkHome)
+        linkHome.countWinOpen().then((numWinBefore) => {
+            linkHome.openWindowHome("simpleLink")
+        linkHome.countWinOpen().then((numWinAfter) => {
+            expect(numWinAfter).to.eq(numWinBefore + 1)
+        })
+    })
     })
     it("User clicks on the home link two", () => {
-        validationRedirect(linkHome, linkHome.validateLinkHomeTwo)
+        linkHome.countWinOpen().then((numWinBefore) => {
+        linkHome.openWindowHome("dynamicLink")
+        linkHome.countWinOpen().then((numWinAfter) => {
+            expect(numWinAfter).to.eq(numWinBefore + 1)
+        })
+    })
     })
     it("User clicks on Created", () => {
         linkHome.getLinkCreate()

@@ -5,17 +5,11 @@ export class Link {
           });
     cy.visit("/links");
     }
-    getLinkHome() {
-        return cy.get("#simpleLink")
+    openWindowHome(linkId){
+        cy.get(`#${linkId}`).should("exist").click()
     }
-    validateLinkHome() {
-        this.getLinkHome().should("exist").and("be.visible").click();
-    }
-    getLinkHomeTwo(){
-        return cy.get("#dynamicLink")
-    }
-    validateLinkHomeTwo(){
-        this.getLinkHomeTwo().should("exist").and("be.visible").click();
+    countWinOpen(){
+        return cy.window().its("length")
     }
     getLinkCreate(){
         cy.get("#created").should("exist").and("be.visible").click()
