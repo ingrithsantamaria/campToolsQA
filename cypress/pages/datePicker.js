@@ -41,5 +41,4 @@ export class DatePicker {
       closeDatePicker() {
         cy.get("body").click();
       }
-
 }
