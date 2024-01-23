@@ -20,10 +20,14 @@ export class SelectMenu {
       .and("be.visible")
       .contains("Group 2");
   }
-  validateAndClickContainerSelectOne(){
-    cy.get('div[id="selectOne"] div').eq(1).should("exist").and("be.visible").click()
+  validateAndClickContainerSelectOne() {
+    cy.get('div[id="selectOne"] div')
+      .eq(1)
+      .should("exist")
+      .and("be.visible")
+      .click();
   }
-  get possibleIdentifiersSet1() {
+  get identifiersSelectValue() {
     return [
       "react-select-2-option-0-0",
       "react-select-2-option-0-1",
@@ -33,7 +37,7 @@ export class SelectMenu {
       "react-select-2-option-3",
     ];
   }
-  get possibleIdentifiersSet2() {
+  get identifiersSelectOne() {
     return [
       "react-select-3-option-0-0",
       "react-select-3-option-0-1",
@@ -43,16 +47,68 @@ export class SelectMenu {
       "react-select-3-option-0-5",
     ];
   }
-  getRandomId(set){
-    const possibleIdentifiers = this[`possibleIdentifiersSet${set}`]
-    const randomIndex = Math.floor(Math.random() * possibleIdentifiers.length)
-    return possibleIdentifiers[randomIndex]
+  getRandomIdSelects(dropdownIdentifier) {
+    const identifiers = this[`identifiers${dropdownIdentifier}`];
+    const randomIndex = Math.floor(Math.random() * identifiers.length);
+    return identifiers[randomIndex];
   }
-  actionWithId(id){
-    cy.get(`#${id}`).click()
+  clickAndValidateIdSelects(id) {
+    cy.get(`#${id}`).should("exist").and("be.visible").click();
   }
-  actionWithRandomId(set){
-    const randomId = this.getRandomId(set)
-    this.actionWithId(randomId)
+  selectRandomIdSelects(dropdownIdentifier) {
+    const randomId = this.getRandomIdSelects(dropdownIdentifier);
+    this.clickAndValidateIdSelects(randomId);
+  }
+  validateOldStyleSelectMenu() {
+    cy.get("select#oldSelectMenu").should("exist").and("be.visible");
+  }
+  selectRandomOptionFromOldStyleSelectMenu(selector) {
+    cy.get(selector)
+      .find("option")
+      .then((options) => {
+        if (options.length > 0) {
+          const randomIndex = Math.floor(Math.random() * options.length);
+          const randomOptionValue = options.eq(randomIndex).val();
+          cy.get(selector).select(randomOptionValue);
+        } else {
+          cy.log("No options found in the dropdown");
+        }
+      });
+  }
+    clickAndValidateMultiSelect(){
+      return cy.get('div[class*="css-"]').eq(16).should("exist").click()
+    }
+  get identifiersIdsMultipleSelect() {
+    return [
+      "react-select-4-option-0",
+      "react-select-4-option-1",
+      "react-select-4-option-2",
+      "react-select-4-option-3",
+    ];
+  }
+  getMultipleRandomIds(count){
+    if(this.identifiersIdsMultipleSelect.length >= count){
+        const randomIndices = Array.from({length: count}, () => {
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * this.identifiersIdsMultipleSelect.length)
+            } while (randomIndices.includes(randomIndex))
+            return randomIndex
+        })
+        const randomIds = randomIndices.map(index => this.identifiersIdsMultipleSelect[index])
+        return randomIds
+    }else {
+        cy.log("Not enough possible IDs")
+        return []
+    }
+  }
+  clickAndValidateMultipleId(id){
+    cy.get(`#${id}`).should("exist").click()
+  }
+  selectRandomMultipleIds(count){
+    const randomIds = this.getMultipleRandomIds(count)
+    randomIds.forEach(id => {
+        this.clickAndValidateMultipleId(id)
+    })
   }
 }
