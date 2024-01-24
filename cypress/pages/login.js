@@ -5,10 +5,13 @@ export class Login {
     });
     cy.visit("https://the-internet.herokuapp.com/login");
   }
+  validateTitleAndSubtitleLogin(){
+    cy.get("h2").should("be.visible").and("not.be.empty")
+    cy.get("h4").should("be.visible").and("not.be.empty")
+  }
   usernameInput() {
     return cy.get("#username");
   }
-
   passwordInput() {
     return cy.get("#password");
   }
@@ -19,10 +22,16 @@ export class Login {
     this.usernameInput().type(username);
     this.passwordInput().type(password);
   }
-  validateFlashError(){
-    return cy.get("#flash").should("exist").and("be.visible")
+  validateFlashErrorUsername(){
+    return cy.get("#flash").should("exist").and("be.visible").and("not.be.empty").contains("Your username is invalid!")
   }
-  getErrorMessage() {
-    return this.validateFlashError().text();
+  validateFlashErrorPassword(){
+    return cy.get("#flash").should("exist").and("be.visible").and("not.be.empty").contains("Your password is invalid!")
+  }
+  validateFlashMessageSuccesfullHome(){
+    cy.get("#flash-messages").should("exist").and("be.visible").and("not.be.empty").contains("You logged into a secure area!")
+  }
+  clickAndValidateLogout(){
+    cy.get('a[href="/logout"]').should("exist").click()
   }
 }
