@@ -1,5 +1,5 @@
 import { Login } from "../pages/login";
-import { Faker, faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker";
 const login = new Login()
 const fakeUsername = faker.internet.userName()
 const fakePassword = faker.internet.password()
