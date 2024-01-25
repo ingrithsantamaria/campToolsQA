@@ -86,29 +86,26 @@ export class SelectMenu {
       "react-select-4-option-3",
     ];
   }
-  getMultipleRandomIds(count){
-    if(this.identifiersIdsMultipleSelect.length >= count){
-        const randomIndices = Array.from({length: count}, () => {
-            let randomIndex;
-            do {
-                randomIndex = Math.floor(Math.random() * this.identifiersIdsMultipleSelect.length)
-            } while (randomIndices.includes(randomIndex))
-            return randomIndex
-        })
-        const randomIds = randomIndices.map(index => this.identifiersIdsMultipleSelect[index])
-        return randomIds
-    }else {
-        cy.log("Not enough possible IDs")
-        return []
+  getRandomIdsList = (count) => {
+    const totalIdentifiers = this.identifiersIdsMultipleSelect.length;
+    if (count >= totalIdentifiers) {
+      return [...this.identifiersIdsMultipleSelect]; 
     }
-  }
-  clickAndValidateMultipleId(id){
-    cy.get(`#${id}`).should("exist").click()
-  }
-  selectRandomMultipleIds(count){
-    const randomIds = this.getMultipleRandomIds(count)
-    randomIds.forEach(id => {
-        this.clickAndValidateMultipleId(id)
-    })
-  }
+    const randomIdsList = [];
+    const uniqueIndexes = new Set();
+    while (uniqueIndexes.size < count) {
+      const randomIndex = Math.floor(Math.random() * totalIdentifiers);
+      uniqueIndexes.add(randomIndex);
+    }
+    uniqueIndexes.forEach((index) => {
+      randomIdsList.push(this.identifiersIdsMultipleSelect[index]);
+    });
+    return randomIdsList;
+  };
+  selectRandomIdsAndClickAction = (count) => {
+    const randomIdsList = this.getRandomIdsList(count);
+    randomIdsList.forEach((id) => {
+      cy.get(`#${id}`).should("exist").and("be.visible").click();
+    });
+  };
 }

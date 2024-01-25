@@ -8,11 +8,15 @@ export class Menu {
     parentMenu(){
         return cy.get("a").contains("Main Item 2")
     }
-    subMenu(){
-        return cy.get("ul li a").contains("Sub Item:visible", { timeout: 40000 })
+    subMenu1(){
+        //return cy.contains('a', 'Sub Item').eq(1)
+        return cy.get('a[href="#"]').contains("Main Item 2").contains("Sub Item")
     }
     hoverOverSubMenu() {
         this.parentMenu().trigger('mouseover');
-        this.subMenu().should("exist").click();
+        //this.subMenu1().click();
+    }
+    selectSubItem1(){
+        this.subMenu1().click()
     }
 }

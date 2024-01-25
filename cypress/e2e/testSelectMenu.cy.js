@@ -25,9 +25,9 @@ describe("Should fill out the fields", () => {
     const dropdownSelector = "select#oldSelectMenu";
     selectMenu.selectRandomOptionFromOldStyleSelectMenu(dropdownSelector);
   });
-  it("should select multiple random options from the div", () => {
+  it("should select multiple random options from the dropdown", () => {
     selectMenu.clickAndValidateMultiSelect()
-    const numberOfIdsToUse = 3;
-    selectMenu.selectRandomMultipleIds(numberOfIdsToUse);
+    const numberOfOptionsToSelect = 3;
+    selectMenu.selectRandomIdsAndClickAction(numberOfOptionsToSelect)
   });
 });
