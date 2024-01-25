@@ -18,14 +18,17 @@ describe("Should fill out the fields", () => {
     selectMenu.validateAndClickContainerSelectOne();
     selectMenu.selectRandomIdSelects("SelectOne");
   });
-  it("User clicks on the container Old Style Select Menu to display the options ", () => {
+  it("User clicks on the container Old Style Select Menu to display the options", () => {
     selectMenu.validateOldStyleSelectMenu();
   });
-  it("should select a random option from the old select Menu", () => {
+  it("User should select a random option from the old select Menu", () => {
     const dropdownSelector = "select#oldSelectMenu";
     selectMenu.selectRandomOptionFromOldStyleSelectMenu(dropdownSelector);
   });
-  it("should select multiple random options from the dropdown", () => {
+  it("ser clicks on the Multiselect drop down to display the options", () => {
+    selectMenu.clickAndValidateMultiSelect()
+  })
+  it("User should select multiple random options from the dropdown", () => {
     selectMenu.clickAndValidateMultiSelect()
     const numberOfOptionsToSelect = 3;
     selectMenu.selectRandomIdsAndClickAction(numberOfOptionsToSelect)
