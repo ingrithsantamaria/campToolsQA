@@ -4,43 +4,43 @@ beforeEach(() => {
     regisForm.navigateRegisForm()
 });
 describe("Should fill out the fields", () => {
-    it("Validate that the field FirstName is visible", () => {
+    it("Validate visibility and attributes of the field First Name", () => {
         regisForm.validateFieldFirstName("First Name")
     })
-    it("Validate that the field lastName is visible", () => {
+    it("Validate visibility and attributes of the field Last Name", () => {
         regisForm.validateFieldLastName("Last Name")
     })
-    it("Validate that the field email is visible", () => {
-        regisForm.validateFieldEmail()
+    it("Validate visibility and attributes of the field Email", () => {
+        regisForm.validateFieldEmail("name@example.com")
     })
-    it("Validate that the field gender Male is visible", () => {
+    it("Validate visibility and attributes of the field Gender Male", () => {
         regisForm.validateGenderMale()
     })
-    it("Validate that the field gender Female is visible", () => {
+    it("Validate visibility and attributes of the field Gender Female", () => {
         regisForm.validateGenderFemale()
     })
-    it("Validate that the field gender Other is visible", () => {
+    it("Validate visibility and attributes of the field Gender Other", () => {
         regisForm.validateGenderOther()
     })
-    it("Validate that the field Mobile is visible", () => {
-        regisForm.validateFieldMobile()
+    it("Validate visibility and attributes of the field Mobile", () => {
+        regisForm.validateFieldMobile("Mobile Number", 10)
     })
-    it("Validate that the field Date of Birth is visible", () => {
+    it("Validate visibility and attributes of the field Date of Birth", () => {
         regisForm.validateFieldDateOfBirth()
     })
-    it("Validate that the field Subjects is visible", () => {
-        regisForm.validateFieldSubjects()
+    it("Validate visibility and attributes of the field Subjects", () => {
+        regisForm.validateFieldSubjects("off", "list", "false", "none")
     })
-    it("Validate that the field Select Picture is visible", () => {
+    it("Validate visibility and attributes of the field Select Picture", () => {
         regisForm.validateFieldSelectPicture()
     })
-    it("Validate that the field Current Address is visible", () => {
-        regisForm.validateFieldCurrentAddress()
+    it("Validate visibility and attributes of the field Current Address", () => {
+        regisForm.validateFieldCurrentAddress("Current Address")
     })
-    it("Validate that the field State is visible", () => {
-        regisForm.validateFieldState()
+    it("Validate visibility and attributes of the field State", () => {
+        regisForm.validateFieldState("off", "list", "false", "none")
     })
-    it("Validate that the field City is visible", () => {
-        regisForm.validateFieldCity()
+    it("Validate visibility and attributes of the field City", () => {
+        regisForm.validateFieldCity("off", "list", "false", "none")
     })
 })
