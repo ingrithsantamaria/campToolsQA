@@ -1,9 +1,26 @@
 import { StudentRegisForm } from "../pages/studentRegistrationForm";
+import { faker } from "@faker-js/faker/locale/en";
 const regisForm = new StudentRegisForm()
 beforeEach(() => {
     regisForm.navigateRegisForm()
 });
 describe("Should fill out the fields", () => {
+    it("User fills out the form fields", () => {
+        regisForm.fillFieldsForm(
+            faker.person.firstName(),
+            faker.person.lastName(),
+            faker.internet.email(),
+            faker.phone.number(),
+            `${faker.location.ordinalDirection()} ${faker.location.city()} ${faker.location.secondaryAddress()}`
+        )
+        regisForm.selectRandomRadioButton()
+        //regisForm.selectCheckRandomCheckbox()
+        //regisForm.selectDateRandom("dateOfBirthInput")
+        //regisForm.closeDatePicker()
+        regisForm.uploadFile()
+        regisForm.selectRandomIdSelects("SelectState")
+        regisForm.selectRandomIdSelects("SelectCity")
+    })
     it("Validate visibility and attributes of the field First Name", () => {
         regisForm.validateFieldFirstName("First Name")
     })
