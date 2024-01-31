@@ -18,7 +18,9 @@ describe("Should fill out the fields", () => {
         //regisForm.selectDateRandom("dateOfBirthInput")
         //regisForm.closeDatePicker()
         regisForm.uploadFile()
+        regisForm.validateFieldState()
         regisForm.selectRandomIdSelects("SelectState")
+        regisForm.validateFieldCity()
         regisForm.selectRandomIdSelects("SelectCity")
     })
     it("Validate visibility and attributes of the field First Name", () => {

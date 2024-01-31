@@ -138,6 +138,7 @@ export class StudentRegisForm {
     .and("have.attr", "autocomplete", value)
     .and("have.attr", "spellcheck", boolean)
     .and("have.attr", "autocapitalize", valueAutocapitalize)
+    .click()
   }
   validateFieldCity(value, text, boolean, valueAutocapitalize) {
     cy.get('div[id="stateCity-wrapper"] div').eq(11).should("be.visible")
@@ -146,6 +147,7 @@ export class StudentRegisForm {
     .and("have.attr", "autocomplete", value)
     .and("have.attr", "spellcheck", boolean)
     .and("have.attr", "autocapitalize", valueAutocapitalize)
+    .click()
   }
   fillFieldsForm(firstName, lastName, email, number, currentAddress){
     cy.get("#firstName").type(firstName)
