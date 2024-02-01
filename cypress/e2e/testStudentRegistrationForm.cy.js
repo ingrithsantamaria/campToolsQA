@@ -15,10 +15,11 @@ describe("Should fill out the fields", () => {
         )
         regisForm.selectRandomRadioButton()
         regisForm.selectCheckRandomCheckbox()
-        //regisForm.selectDateRandom("dateOfBirthInput")
-        //regisForm.closeDatePicker()
+        regisForm.closeDatePicker()
         regisForm.uploadFile()
-        regisForm.selectRandomState()
+        regisForm.selectDateRandom()
+        const statesMap = regisForm.getMapStatesWithCity()
+        cy.log('Mapa de estados con ciudades:', statesMap);
     })
     it("Validate visibility and attributes of the field First Name", () => {
         regisForm.validateFieldFirstName("First Name")

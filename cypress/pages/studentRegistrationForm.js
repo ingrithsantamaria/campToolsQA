@@ -62,11 +62,10 @@ export class StudentRegisForm {
     return cy.get("#dateOfBirthInput").should("be.visible")
   }
   selectDateRandom() {
-    this.validateFieldDateOfBirth().click()
     const today = new Date()
     const randomDate = new Date(today.getTime() + Math.random()* 30 * 24 * 60 * 60 * 1000)
     const formattedDate = `${randomDate.getDate()} ${randomDate.getMonth() + 1}  ${randomDate.getFullYear()}`
-    cy.get("div.react-datepicker__month-container").contains(formattedDate).click()
+    this.validateFieldDateOfBirth().type(`{del}${formattedDate}`).click()
 }
   closeDatePicker() {
     cy.get("body").click();
@@ -125,22 +124,31 @@ export class StudentRegisForm {
     .and("have.attr", "autocomplete", value)
     .and("have.attr", "spellcheck", boolean)
     .and("have.attr", "autocapitalize", valueAutocapitalize)
-    .click()
   }
   getFieldState(){
     return cy.get('div[id="state"] div').eq(1).click({force:true})
   }
-  selectRandomState(){
-    this.getFieldState().find('div').then(($options) => {
-      const quantityOptions = $options.length;
-      if (quantityOptions === 0) {
-        throw new Error('No hay options disponibles en la lista.');
-      }
-      const randomIndex = Cypress._.random(0, quantityOptions - 1);
-      const textOptionSelect = $options.eq(randomIndex).text();
-      cy.wrap($options.eq(randomIndex)).click({force:true});
-      return textOptionSelect;
+  selectState(idstate) {
+    cy.get('div[id="state"] div').click({force:true, multiple:true}, idstate);
+  }
+
+  getMapStatesWithCity() {
+    const statesMap = new Map();
+    cy.get('div[id="state"] div').each(($state) => {
+      const idstate = $state.val();
+      this.selectState(idstate);
+      const partnerCities = this.getIdspartnerCities();
+      statesMap.set(idstate, partnerCities);
     });
+    return statesMap;
+  }
+  getIdspartnerCities() {
+    const partnerCities = [];
+    cy.get('div[id="stateCity-wrapper"] div').each(($cities) => {
+      const idcities = $cities.val();
+      partnerCities.push(idcities);
+    });
+    return partnerCities;
   }
   fillFieldsForm(firstName, lastName, email, number, currentAddress){
     cy.get("#firstName").type(firstName)
