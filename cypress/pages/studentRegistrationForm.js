@@ -93,9 +93,6 @@ export class StudentRegisForm {
       const totalParentCheckboxes = parentCheckboxes.length;
       const randomParentIndex = Cypress._.random(0, totalParentCheckboxes - 1);
       this.validateFieldHobbies().eq(randomParentIndex).click({ force: true });
-  //   this.validateFieldHobbies().should('exist').then(($checkButtons) => {
-  //     const randomIndex = Math.floor(Math.random() * $checkButtons.length);
-  //     cy.wrap($checkButtons[randomIndex]).click({ force: true });
    })
   }
   validateFieldSelectPicture() {
@@ -113,33 +110,6 @@ export class StudentRegisForm {
       .should("be.visible")
       .and("have.attr", "placeholder", placeholderText)
   }
-  get identifersSelectState(){
-    return [
-      "react-select-3-option-0",
-      "react-select-3-option-1",
-      "react-select-3-option-2",
-      "react-select-3-option-3",
-    ];
-  }
-  get identifiersSelectCity(){
-    return [
-      "react-select-4-option-0",
-      "react-select-4-option-1",
-      "react-select-4-option-2",
-    ];
-  }
-  getRandomIdSelects(dropdownIdentifier) {
-    const identifiers = this[`identifiers${dropdownIdentifier}`];
-    const randomIndex = Math.floor(Math.random() * identifiers.length);
-    return identifiers[randomIndex];
-  }
-  clickIdSelects(id) {
-    cy.get(`#${id}`).click();
-  }
-  selectRandomIdSelects(dropdownIdentifier) {
-    const randomId = this.getRandomIdSelects(dropdownIdentifier);
-    this.clickIdSelects(randomId);
-  }
   validateFieldState(value, text, boolean, valueAutocapitalize) {
     cy.get('div[id="state"] div').eq(1).should("be.visible")
     cy.get("input#react-select-3-input").should("have.attr", "autocorrect", value)
@@ -147,7 +117,6 @@ export class StudentRegisForm {
     .and("have.attr", "autocomplete", value)
     .and("have.attr", "spellcheck", boolean)
     .and("have.attr", "autocapitalize", valueAutocapitalize)
-    .click()
   }
   validateFieldCity(value, text, boolean, valueAutocapitalize) {
     cy.get('div[id="stateCity-wrapper"] div').eq(11).should("be.visible")
@@ -157,6 +126,21 @@ export class StudentRegisForm {
     .and("have.attr", "spellcheck", boolean)
     .and("have.attr", "autocapitalize", valueAutocapitalize)
     .click()
+  }
+  getFieldState(){
+    return cy.get('div[id="state"] div').eq(1).click({force:true})
+  }
+  selectRandomState(){
+    this.getFieldState().find('div').then(($options) => {
+      const quantityOptions = $options.length;
+      if (quantityOptions === 0) {
+        throw new Error('No hay options disponibles en la lista.');
+      }
+      const randomIndex = Cypress._.random(0, quantityOptions - 1);
+      const textOptionSelect = $options.eq(randomIndex).text();
+      cy.wrap($options.eq(randomIndex)).click({force:true});
+      return textOptionSelect;
+    });
   }
   fillFieldsForm(firstName, lastName, email, number, currentAddress){
     cy.get("#firstName").type(firstName)
