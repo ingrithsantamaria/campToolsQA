@@ -34,13 +34,13 @@ export class StudentRegisForm {
     cy.contains("label", "Other").should("be.visible")
     cy.get("input#gender-radio-3").should("have.attr", "required")
   }
-  getRadioButtons(){
+  getcheckButtons(){
     return cy.get("input[type=radio]")
   }
   selectRandomRadioButton() {
-    this.getRadioButtons().should('exist').then(($radioButtons) => {
-        const randomIndex = Math.floor(Math.random() * $radioButtons.length);
-        cy.wrap($radioButtons[randomIndex]).click({ force: true });
+    this.getcheckButtons().should('exist').then(($checkButtons) => {
+        const randomIndex = Math.floor(Math.random() * $checkButtons.length);
+        cy.wrap($checkButtons[randomIndex]).click({ force: true });
     })
 }
   // validateFieldGenderVisibleElementWithOpacityZero() {
@@ -79,20 +79,29 @@ export class StudentRegisForm {
     .and("have.attr", "spellcheck", boolean)
     .and("have.attr", "autocapitalize", valueAutocapitalize)
   }
-  // validateFieldHobbies(){
-  //   return cy.get("div.col-md-9 col-sm-12").should("be.visible")
-  // }
-  // selectCheckRandomCheckbox() {
-  //   this.validateFieldHobbies().should('exist').then((parentCheckboxes) => {
-  //     const totalParentCheckboxes = parentCheckboxes.length;
-  //     const randomParentIndex = Cypress._.random(0, totalParentCheckboxes - 1);
-  //     this.validateFieldHobbies().eq(randomParentIndex).click();
-  //   });
-  // }
+  writeOnField(texto){
+    cy.get("div.subjects-auto-complete__value-container").click().type(texto)
+  }
+  selectPredictiveOption(option){
+    cy.contains(".subjects-auto-complete__option css-yt9ioa-option", option).click()
+  }
+  validateFieldHobbies(){
+    return cy.get("input[type=checkbox]")
+  }
+  selectCheckRandomCheckbox() {
+    this.validateFieldHobbies().should('exist').then((parentCheckboxes) => {
+      const totalParentCheckboxes = parentCheckboxes.length;
+      const randomParentIndex = Cypress._.random(0, totalParentCheckboxes - 1);
+      this.validateFieldHobbies().eq(randomParentIndex).click({ force: true });
+  //   this.validateFieldHobbies().should('exist').then(($checkButtons) => {
+  //     const randomIndex = Math.floor(Math.random() * $checkButtons.length);
+  //     cy.wrap($checkButtons[randomIndex]).click({ force: true });
+   })
+  }
   validateFieldSelectPicture() {
     return cy.get("input#uploadPicture").should("be.exist")
   }
-  uploadFile(filePath){
+  uploadFile(){
     this.validateFieldSelectPicture().selectFile({
       contents: Cypress.Buffer.from('file contents'),
       fileName: 'file.txt',
