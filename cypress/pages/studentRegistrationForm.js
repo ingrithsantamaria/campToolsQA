@@ -128,27 +128,59 @@ export class StudentRegisForm {
   getFieldState(){
     return cy.get('div[id="state"] div').eq(1).click({force:true})
   }
-  selectState(idstate) {
-    cy.get('div[id="state"] div').click({force:true, multiple:true}, idstate);
+  getFieldCities(){
+    return cy.get('div[id="city"] div').eq(1).click({force:true})
   }
-
-  getMapStatesWithCity() {
-    const statesMap = new Map();
-    cy.get('div[id="state"] div').each(($state) => {
-      const idstate = $state.val();
-      this.selectState(idstate);
-      const partnerCities = this.getIdspartnerCities();
-      statesMap.set(idstate, partnerCities);
-    });
-    return statesMap;
+  identifersSelectState(){
+    return [
+      "react-select-3-option-0",
+      "react-select-3-option-1",
+      "react-select-3-option-2",
+      "react-select-3-option-3",
+    ];
   }
-  getIdspartnerCities() {
-    const partnerCities = [];
-    cy.get('div[id="stateCity-wrapper"] div').each(($cities) => {
-      const idcities = $cities.val();
-      partnerCities.push(idcities);
-    });
-    return partnerCities;
+  identifiersSelectCity(){
+    const citiesMap = new Map()
+    citiesMap.set("react-select-3-option-0", [
+      "react-select-4-option-0",
+      "react-select-4-option-1",
+      "react-select-4-option-2"
+    ])
+    citiesMap.set("react-select-3-option-1", [
+      "react-select-4-option-0",
+      "react-select-4-option-1",
+      "react-select-4-option-2"
+    ])
+    citiesMap.set("react-select-3-option-2", [
+      "react-select-4-option-0",
+      "react-select-4-option-1",
+    ])
+    citiesMap.set("react-select-3-option-3", [
+      "react-select-4-option-0",
+      "react-select-4-option-1",
+    ])
+    return citiesMap
+  }
+  getRandomIdSelectState() {
+    const identifiers = this.identifersSelectState()
+    const randomIndex = Math.floor(Math.random() * identifiers.length);
+    return identifiers[randomIndex];
+  }
+  clickIdSelects(id) {
+    cy.get(`#${id}`).click({force:true});
+  }
+  selectRandomIdState() {
+    this.getFieldState()
+    const randomId = this.getRandomIdSelectState();
+    this.clickIdSelects(randomId)
+    return randomId
+  }
+  selectRandomCityByState(stateId){
+    this.getFieldCities()
+    const cities = this.identifiersSelectCity().get(stateId)
+    const randomIndex = Math.floor(Math.random() * cities.length);
+    const randomId = cities[randomIndex]
+    this.clickIdSelects(randomId)
   }
   fillFieldsForm(firstName, lastName, email, number, currentAddress){
     cy.get("#firstName").type(firstName)

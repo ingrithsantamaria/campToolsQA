@@ -5,22 +5,6 @@ beforeEach(() => {
     regisForm.navigateRegisForm()
 });
 describe("Should fill out the fields", () => {
-    it("User fills out the form fields", () => {
-        regisForm.fillFieldsForm(
-            faker.person.firstName(),
-            faker.person.lastName(),
-            faker.internet.email(),
-            faker.phone.number(),
-            `${faker.location.ordinalDirection()} ${faker.location.city()} ${faker.location.secondaryAddress()}`
-        )
-        regisForm.selectRandomRadioButton()
-        regisForm.selectCheckRandomCheckbox()
-        regisForm.closeDatePicker()
-        regisForm.uploadFile()
-        regisForm.selectDateRandom()
-        const statesMap = regisForm.getMapStatesWithCity()
-        cy.log('Mapa de estados con ciudades:', statesMap);
-    })
     it("Validate visibility and attributes of the field First Name", () => {
         regisForm.validateFieldFirstName("First Name")
     })
@@ -59,5 +43,21 @@ describe("Should fill out the fields", () => {
     })
     it("Validate visibility and attributes of the field City", () => {
         regisForm.validateFieldCity("off", "list", "false", "none")
+    })
+    it("User fills out the form fields", () => {
+        regisForm.fillFieldsForm(
+            faker.person.firstName(),
+            faker.person.lastName(),
+            faker.internet.email(),
+            faker.phone.number(),
+            `${faker.location.ordinalDirection()} ${faker.location.city()} ${faker.location.secondaryAddress()}`
+        )
+        regisForm.selectRandomRadioButton()
+        regisForm.selectCheckRandomCheckbox()
+        regisForm.uploadFile()
+        const states = regisForm.selectRandomIdState()
+        regisForm.selectRandomCityByState(states)
+        regisForm.selectDateRandom()
+        regisForm.closeDatePicker()
     })
 })
